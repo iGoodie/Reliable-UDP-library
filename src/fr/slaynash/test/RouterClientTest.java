@@ -19,14 +19,14 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import fr.slaynash.communication.handlers.OrderedPacketHandler;
 import fr.slaynash.communication.rudp.Packet;
 import fr.slaynash.communication.rudp.RUDPClient;
-import fr.slaynash.communication.utils.NetUtils;
-import javax.swing.ScrollPaneConstants;
+import igoodie.utils.io.NetUtils;
 
 public class RouterClientTest extends JFrame {
 
@@ -54,9 +54,9 @@ public class RouterClientTest extends JFrame {
 		}
 
 		@Override
-		public void onExpectedPacketReceived(Packet packet) {
+		public void handleRUDP(Packet packet) {
 			short next = NetUtils.shortIncrement(prevHandled);
-			gui_instance.taHandledPacket.setText("Last Handled Packet:"+ lastHandledSeq +"\n" + packet.toString());
+			gui_instance.taHandledPacket.setText("Last Handled Packet:"+ lastRUDPSeq +"\n" + packet.toString());
 			if(packet.getHeader().getSequenceNo() != next) {
 				System.out.printf("HANDLING ERROR PREV:%d, CUR:%d", prevHandled, next);
 				gui_instance.disconnectWGui();
