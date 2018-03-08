@@ -6,7 +6,7 @@ import igoodie.utils.io.NetUtils;
  * Simple packet definition to be extended by other packet types
  * @author iGoodie
  */
-public abstract class Packet {
+public class Packet {
 
 	public static final int HEADER_SIZE = 3; //bytes
 	
@@ -23,7 +23,6 @@ public abstract class Packet {
 		public static boolean isTypeReliable(int packetType) {
 			return (packetType & 0b1000_0000) == 0b1000_0000;
 		}
-		
 		
 		private boolean isReliable = false;
 		private short sequenceNum;

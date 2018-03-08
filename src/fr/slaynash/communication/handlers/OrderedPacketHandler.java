@@ -23,19 +23,19 @@ public class OrderedPacketHandler extends PacketHandler {
 	@Override
 	public void onDisconnectedByRemote(String reason) {
 		reliableQueue = new PacketQueue();
-		lastRUDPSeq = Short.MAX_VALUE;
+		lastRUDPSeq = -1;
 	}
 	
 	@Override
 	public void onDisconnectedByLocal(String reason) {
 		reliableQueue = new PacketQueue();
-		lastRUDPSeq = Short.MAX_VALUE;
+		lastRUDPSeq = -1;
 	}
 
 	/* Packet-receive Handlers */
 	@Override
 	public void onPacketReceived(byte[] data) {
-		Packet packet = new Packet(data) {}; //Parse received packet
+		Packet packet = new Packet(data); //Parse received packet
 		
 		if(NetUtils.sequence_greater_than(packet.getHeader().getSequenceNo(), lastUDPSeq)) { //If newSeq < lastSeq
 			handleUDP(packet);
@@ -49,7 +49,7 @@ public class OrderedPacketHandler extends PacketHandler {
 	
 	@Override
 	public void onReliablePacketReceived(byte[] data) {
-		Packet packet = new Packet(data) {}; //Parse received packet
+		Packet packet = new Packet(data); //Parse received packet
 		short expectedSeq = NetUtils.shortIncrement(lastRUDPSeq); //last + 1
 		
 		if(NetUtils.sequence_greater_than(lastRUDPSeq, packet.getHeader().getSequenceNo())) { // (last > received) == (received < last)
