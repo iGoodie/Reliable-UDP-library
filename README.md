@@ -6,7 +6,7 @@ Compile and run
 ---
 #### Requirements
 - Java 8+
-- Goodieutils 0.0.1+
+- [iGoodie/Goodieutils 0.0.1+](https://github.com/iGoodie/Goodieutils)
 
 Examples:
 ---
