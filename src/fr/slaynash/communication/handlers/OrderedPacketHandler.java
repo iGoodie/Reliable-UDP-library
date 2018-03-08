@@ -3,6 +3,7 @@ package fr.slaynash.communication.handlers;
 import fr.slaynash.communication.rudp.Packet;
 import fr.slaynash.communication.utils.PacketQueue;
 import igoodie.utils.io.NetUtils;
+import igoodie.utils.log.ConsolePrinter;
 
 /**
  * Packet handling class base to handle ordered packets. <br/>
@@ -10,7 +11,7 @@ import igoodie.utils.io.NetUtils;
  * For RUDP channel, <b><i>handleRUDP()</b></i> method orders the packets, and then handles them.
  * @author iGoodie
  */
-public class OrderedPacketHandler extends PacketHandler {
+public class OrderedPacketHandler extends PacketHandlerAdapter {
 	
 	protected PacketQueue reliableQueue = new PacketQueue();
 	protected short lastRUDPSeq = -1;
@@ -44,7 +45,7 @@ public class OrderedPacketHandler extends PacketHandler {
 	}
 
 	public void handleUDP(Packet packet) {
-		System.out.println("Handling (UDP): " + packet); //Print packet just to test
+		ConsolePrinter.info("Handling (UDP): %o", packet); //Print packet just to test
 	}
 	
 	@Override
@@ -77,12 +78,9 @@ public class OrderedPacketHandler extends PacketHandler {
 	}
 	
 	public void handleRUDP(Packet packet) {
-		System.out.println("Handling (RUDP): " + packet); //Print packet just to test
+		ConsolePrinter.info("Handling (RUDP): %o", packet); //Print packet just to test
 	}
-
-	@Override
-	public void onRemoteStatsReturned(int sentRemote, int sentRemoteR, int receivedRemote, int receivedRemoteR) {}
-
+	
 	/*
 	//Reliability ordering test
 	public static void main(String[] args) {
