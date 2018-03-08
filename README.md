@@ -1,14 +1,12 @@
-# jRUDP
-A Reliable Java UDP Library for multiplayer games and more
-
-Specials thanks
----
-Special Thanks to [iGoodie](https://github.com/iGoodie) for the work he had done and the help he gave me on this project
+# jRUDP-with-Goodieutils
+A wrapper for [**Slaynash/jRUDP**](https://github.com/Slaynash/jRUDP) repository included Goodieutils.
+jRUDP is a Reliable Java UDP Library for multiplayer games and more.
 
 Compile and run
 ---
 #### Requirements
-To use this library, you only need to have java 8 or newer. No additional libraries required !
+- Java 8+
+- Goodieutils 0.0.1+
 
 Examples:
 ---
@@ -25,7 +23,7 @@ public class Server
 			serverInstance.start();
 		}
 		catch(SocketException e) {
-			System.out.println("Port " + SERVER_PORT + " is occupied. Server couldn't be initialized.");
+			ConsolePrinter.error("Port %d is occupied. Server couldn't be initialized.", SERVER_PORT);
 			System.exit(-1);
 		}
 
@@ -57,15 +55,15 @@ public class Client
 			client.connect();
 		}
 		catch(SocketException e) {
-			System.out.println("Cannot allow port for the client. Client can't be launched.");
+			ConsolePrinter.error("Cannot allow port for the client. Client can't be launched.");
 			System.exit(-1);
 		}
 		catch(UnknownHostException e) {
-			System.out.println("Unknown host: " + SERVER_HOST);
+			ConsolePrinter.error("Unknown host: %o", SERVER_HOST);
 			System.exit(-1);
 		}
 		catch(SocketTimeoutException e) {
-			System.out.println("Connection to " + SERVER_HOST + ":" + SERVER_PORT + " timed out.");
+			ConsolePrinter.error("Connection to %o:%d timed out.", SERVER_HOST, SERVER_PORT);
 		}
 		catch (InstantiationException e) {} //Given handler class can't be instantiated.
 		catch (IllegalAccessException e) {} //Given handler class can't be accessed.
@@ -80,4 +78,10 @@ public class Client
 ```
 
 ## Getting support
-If you have any question or you found a problem, you can [open an issue](https://github.com/Slaynash/Reliable-UDP-library/issues) on the Github repository, send me an email at [slaynash@survival-machines.fr](mailto:slaynash@survival-machines.fr), or contact me on Discord (Slaynash#2879).
+If you have any question or you found a problem, you can;
+- [Open an issue](https://github.com/Slaynash/jRUDP/issues) on the official jRUDP repository **Slaynash/jRUDP**
+- Send **Slaynash** an email at [slaynash@survival-machines.fr](mailto:slaynash@survival-machines.fr)
+- Contact **Slaynash** on Discord by messaging Slaynash#2879
+- [Open an issue](https://github.com/iGoodie/jRUDP-with-Goodieutils/issues) on the wrapper repository **iGoodie/jRUDP-with-Goodieutils**
+- Send **iGoodie** an email at [igoodie@programmer.net](mailto:igoodie@programmer.net)
+- Contact **iGoodie** on Discord by messaging iGoodie#1945
