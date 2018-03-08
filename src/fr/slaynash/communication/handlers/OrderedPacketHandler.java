@@ -1,41 +1,59 @@
 package fr.slaynash.communication.handlers;
 
 import fr.slaynash.communication.rudp.Packet;
-import fr.slaynash.communication.utils.NetUtils;
 import fr.slaynash.communication.utils.PacketQueue;
+import igoodie.utils.io.NetUtils;
+import igoodie.utils.log.ConsolePrinter;
 
-public class OrderedPacketHandler extends PacketHandler {
+/**
+ * Packet handling class base to handle ordered packets. <br/>
+ * For UDP channel, <b><i>handleUDP()</b></i> method handles up-to-date packets, but drops the depricated packets. <br/>
+ * For RUDP channel, <b><i>handleRUDP()</b></i> method orders the packets, and then handles them.
+ * @author iGoodie
+ */
+public class OrderedPacketHandler extends PacketHandlerAdapter {
 	
 	protected PacketQueue reliableQueue = new PacketQueue();
-	protected short lastHandledSeq = -1;
+	protected short lastRUDPSeq = -1;
+	protected short lastUDPSeq = -1;
 
+	/* Connection Handlers */
 	@Override
 	public void onConnection() {}
 
 	@Override
 	public void onDisconnectedByRemote(String reason) {
 		reliableQueue = new PacketQueue();
-		lastHandledSeq = Short.MAX_VALUE;
+		lastRUDPSeq = -1;
 	}
 	
 	@Override
 	public void onDisconnectedByLocal(String reason) {
 		reliableQueue = new PacketQueue();
-		lastHandledSeq = Short.MAX_VALUE;
+		lastRUDPSeq = -1;
 	}
 
+	/* Packet-receive Handlers */
 	@Override
-	public void onPacketReceived(byte[] data) {}
+	public void onPacketReceived(byte[] data) {
+		Packet packet = new Packet(data); //Parse received packet
+		
+		if(NetUtils.sequence_greater_than(packet.getHeader().getSequenceNo(), lastUDPSeq)) { //If newSeq < lastSeq
+			handleUDP(packet);
+			lastUDPSeq = packet.getHeader().getSequenceNo(); // Update newest packet seq
+		}
+	}
 
-	@Override
-	public void onRemoteStatsReturned(int sentRemote, int sentRemoteR, int receivedRemote, int receivedRemoteR) {}
-
+	public void handleUDP(Packet packet) {
+		ConsolePrinter.info("Handling (UDP): %o", packet); //Print packet just to test
+	}
+	
 	@Override
 	public void onReliablePacketReceived(byte[] data) {
-		Packet packet = new Packet(data) {}; //Parse received packet
-		short expectedSeq = NetUtils.shortIncrement(lastHandledSeq); //last + 1
+		Packet packet = new Packet(data); //Parse received packet
+		short expectedSeq = NetUtils.shortIncrement(lastRUDPSeq); //last + 1
 		
-		if(NetUtils.sequence_greater_than(lastHandledSeq, packet.getHeader().getSequenceNo())) { // (last > received) == (received < last)
+		if(NetUtils.sequence_greater_than(lastRUDPSeq, packet.getHeader().getSequenceNo())) { // (last > received) == (received < last)
 			return; // Drop the packet, because we already handled it
 		}
 		
@@ -46,21 +64,21 @@ public class OrderedPacketHandler extends PacketHandler {
 		}
 		
 		// Handle expected packet
-		onExpectedPacketReceived(packet); 
-		lastHandledSeq = packet.getHeader().getSequenceNo();
-		expectedSeq = NetUtils.shortIncrement(lastHandledSeq); 
+		handleRUDP(packet); 
+		lastRUDPSeq = packet.getHeader().getSequenceNo();
+		expectedSeq = NetUtils.shortIncrement(lastRUDPSeq); 
 
 		// Handle every waiting packet
 		while(!reliableQueue.isEmpty() && reliableQueue.peek().getHeader().getSequenceNo() == expectedSeq) {
 			packet = reliableQueue.dequeue();
-			onExpectedPacketReceived(packet);
-			lastHandledSeq = expectedSeq;
-			expectedSeq = NetUtils.shortIncrement(lastHandledSeq);			
+			handleRUDP(packet);
+			lastRUDPSeq = expectedSeq;
+			expectedSeq = NetUtils.shortIncrement(lastRUDPSeq);			
 		}
 	}
 	
-	public void onExpectedPacketReceived(Packet packet) {
-		System.out.println("Handling: " + packet); //Print packet just to test
+	public void handleRUDP(Packet packet) {
+		ConsolePrinter.info("Handling (RUDP): %o", packet); //Print packet just to test
 	}
 	
 	/*

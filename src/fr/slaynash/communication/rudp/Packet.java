@@ -1,17 +1,29 @@
 package fr.slaynash.communication.rudp;
 
-import fr.slaynash.communication.RUDPConstants;
-import fr.slaynash.communication.utils.NetUtils;
+import igoodie.utils.io.NetUtils;
 
 /**
  * Simple packet definition to be extended by other packet types
  * @author iGoodie
  */
-public abstract class Packet {
+public class Packet {
 
 	public static final int HEADER_SIZE = 3; //bytes
 	
-	public static class PacketHeader {		
+	public static class PHeader {
+
+		public static byte createTypeHeader(byte id, boolean reliable) {
+			if((id & 0b1000_0000) == 0b1000_0000) //If leftmost bit is set
+				throw new IllegalArgumentException("Packet id too big for adding the reliability bit");
+			if(reliable)
+				return (byte) (id | (1 << 7));
+			return id;
+		}
+		
+		public static boolean isTypeReliable(int packetType) {
+			return (packetType & 0b1000_0000) == 0b1000_0000;
+		}
+		
 		private boolean isReliable = false;
 		private short sequenceNum;
 
@@ -33,13 +45,13 @@ public abstract class Packet {
 	}
 
 	/* Fields*/
-	private PacketHeader header = new PacketHeader();
+	private PHeader header = new PHeader();
 	private byte[] rawPayload;
 
 	/* Constructor */
 	public Packet(byte[] data) {
 		//Parse header
-		header.isReliable = RUDPConstants.isPacketReliable(data[0]);
+		header.isReliable = PHeader.isTypeReliable(data[0]);
 		header.sequenceNum = NetUtils.asShort(data, 1);
 
 		//Parse payload
@@ -48,7 +60,7 @@ public abstract class Packet {
 	}
 
 	/* Getter and Setters */
-	public PacketHeader getHeader() {
+	public PHeader getHeader() {
 		return header;
 	}
 

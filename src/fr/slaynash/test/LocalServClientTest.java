@@ -5,7 +5,7 @@ import fr.slaynash.communication.handlers.PacketHandlerAdapter;
 import fr.slaynash.communication.rudp.Packet;
 import fr.slaynash.communication.rudp.RUDPClient;
 import fr.slaynash.communication.rudp.RUDPServer;
-import fr.slaynash.communication.utils.NetUtils;
+import igoodie.utils.io.NetUtils;
 
 public class LocalServClientTest {
 	private static RUDPServer server;
@@ -23,7 +23,7 @@ public class LocalServClientTest {
 		}
 		
 		@Override
-		public void onExpectedPacketReceived(Packet packet) {
+		public void handleRUDP(Packet packet) {
 			System.out.println(packet);
 		}
 		
