@@ -405,7 +405,7 @@ public class RUDPClient { //TODO remove use of ByteBuffers and use functions ins
 		lastPacketReceiveTime = System.currentTimeMillis(); //Assume packet received when handling started
 
 		//Counter
-		if(RUDPConstants.isPacketReliable(data[0])) {
+		if(Packet.PHeader.isTypeReliable(data[0])) {
 			
 			//System.out.println("RELIABLE");
 			

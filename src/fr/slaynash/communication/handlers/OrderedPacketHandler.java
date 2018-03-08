@@ -16,6 +16,7 @@ public class OrderedPacketHandler extends PacketHandler {
 	protected short lastRUDPSeq = -1;
 	protected short lastUDPSeq = -1;
 
+	/* Connection Handlers */
 	@Override
 	public void onConnection() {}
 
@@ -31,6 +32,7 @@ public class OrderedPacketHandler extends PacketHandler {
 		lastRUDPSeq = Short.MAX_VALUE;
 	}
 
+	/* Packet-receive Handlers */
 	@Override
 	public void onPacketReceived(byte[] data) {
 		Packet packet = new Packet(data) {}; //Parse received packet
