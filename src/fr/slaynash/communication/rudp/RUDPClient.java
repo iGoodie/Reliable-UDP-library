@@ -22,7 +22,7 @@ import fr.slaynash.communication.RUDPConstants;
 import fr.slaynash.communication.enums.ClientType;
 import fr.slaynash.communication.enums.ConnectionState;
 import fr.slaynash.communication.handlers.PacketHandler;
-import fr.slaynash.communication.utils.NetUtils;
+import igoodie.utils.io.NetUtils;
 
 public class RUDPClient { //TODO remove use of ByteBuffers and use functions instead
 

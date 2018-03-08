@@ -1,7 +1,7 @@
 package fr.slaynash.communication.rudp;
 
 import fr.slaynash.communication.RUDPConstants;
-import fr.slaynash.communication.utils.NetUtils;
+import igoodie.utils.io.NetUtils;
 
 /**
  * Simple packet definition to be extended by other packet types

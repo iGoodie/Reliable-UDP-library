@@ -14,7 +14,7 @@ import java.util.List;
 import fr.slaynash.communication.RUDPConstants;
 import fr.slaynash.communication.enums.ConnectionState;
 import fr.slaynash.communication.handlers.PacketHandler;
-import fr.slaynash.communication.utils.NetUtils;
+import igoodie.utils.io.NetUtils;
 
 public class RUDPServer {// receive buffer is bigger (4096B) and client packet is dynamic (<4096B (reliable) / ~21B or ~45B (avoidable))
 	//Packet format:

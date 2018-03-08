@@ -1,5 +1,9 @@
 package fr.slaynash.communication.handlers;
 
+/**
+ * Adapter class for PacketHandler <br/>
+ * @author iGoodie
+ */
 public class PacketHandlerAdapter extends PacketHandler {
 
 	@Override
