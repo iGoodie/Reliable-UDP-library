@@ -51,7 +51,7 @@ public class Packet {
 	/* Constructor */
 	public Packet(byte[] data) {
 		//Parse header
-		header.isReliable = PHeader.isTypeReliable(data[0]);
+		header.isReliable = data[0] == 0x01;
 		header.sequenceNum = NetUtils.asShort(data, 1);
 
 		//Parse payload
@@ -79,4 +79,16 @@ public class Packet {
 		sb.append("}");
 		return sb.toString();
 	}
+
+	/*public static void main(String[] args) {
+		byte[] payload = new byte[] {
+			(byte) 0x01, //Reliable : true
+			(byte) 0x00, //Seq : 1
+			(byte) 0x01,
+		};
+		
+		Packet p = new Packet(payload);
+		
+		System.out.println(p);
+	}*/
 }
