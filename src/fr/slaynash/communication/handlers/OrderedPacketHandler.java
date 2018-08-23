@@ -45,7 +45,7 @@ public class OrderedPacketHandler extends PacketHandlerAdapter {
 	}
 
 	public void handleUDP(Packet packet) {
-		ConsolePrinter.info("Handling (UDP): %o", packet); //Print packet just to test
+		ConsolePrinter.info("Handling (UDP): %s", packet); //Print packet just to test
 	}
 	
 	@Override
@@ -78,7 +78,7 @@ public class OrderedPacketHandler extends PacketHandlerAdapter {
 	}
 	
 	public void handleRUDP(Packet packet) {
-		ConsolePrinter.info("Handling (RUDP): %o", packet); //Print packet just to test
+		ConsolePrinter.info("Handling (RUDP): %s", packet); //Print packet just to test
 	}
 	
 	/*
