@@ -6,17 +6,16 @@ Compile and run
 ---
 #### Requirements
 - Java 8+
-- [iGoodie/Goodieutils 1.0.0+](https://github.com/iGoodie/Goodieutils)
+- [iGoodie/Goodieutils 1.1.0+](https://github.com/iGoodie/Goodieutils)
 
 Examples:
 ---
 ```java
-public class Server
-{
+public class Server {
+
 	public static RUDPServer serverInstance;
 	public static final int SERVER_PORT = 56448;
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		try {
 			serverInstance = new RUDPServer(SERVER_PORT);
 			serverInstance.setPacketHandler(OrderedPacketHandler.class);
@@ -36,19 +35,19 @@ public class Server
 		serverInstance.kick("localhost", 1234); //kick localhost:1234
 		serverInstance.stop();
 	}
+	
 }
 ```
 
 ```java
-public class Client
-{
+public class Client  {
+
 	public static final InetAddress SERVER_HOST = NetUtils.getInternetAdress("localhost");
 	public static final int SERVER_PORT = 56448;
 
 	public static RUDPClient client;
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		try {
 			client = new RUDPClient(SERVER_HOST, SERVER_PORT);
 			client.setPacketHandler(OrderedPacketHandler.class);
@@ -59,11 +58,11 @@ public class Client
 			System.exit(-1);
 		}
 		catch(UnknownHostException e) {
-			ConsolePrinter.error("Unknown host: %o", SERVER_HOST);
+			ConsolePrinter.error("Unknown host: %s", SERVER_HOST);
 			System.exit(-1);
 		}
 		catch(SocketTimeoutException e) {
-			ConsolePrinter.error("Connection to %o:%d timed out.", SERVER_HOST, SERVER_PORT);
+			ConsolePrinter.error("Connection to %s:%d timed out.", SERVER_HOST, SERVER_PORT);
 		}
 		catch (InstantiationException e) {} //Given handler class can't be instantiated.
 		catch (IllegalAccessException e) {} //Given handler class can't be accessed.
@@ -74,6 +73,7 @@ public class Client
 
 		client.disconnect(); //Disconnect from server
 	}
+	
 }
 ```
 
