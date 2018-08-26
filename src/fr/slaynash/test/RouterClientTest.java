@@ -23,10 +23,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import com.programmer.igoodie.utils.io.NetUtils;
+
 import fr.slaynash.communication.handlers.OrderedPacketHandler;
 import fr.slaynash.communication.rudp.Packet;
 import fr.slaynash.communication.rudp.RUDPClient;
-import igoodie.utils.io.NetUtils;
 
 public class RouterClientTest extends JFrame {
 

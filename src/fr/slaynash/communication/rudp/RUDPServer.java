@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.programmer.igoodie.utils.io.NetUtils;
+import com.programmer.igoodie.utils.log.ConsolePrinter;
+
 import fr.slaynash.communication.RUDPConstants;
 import fr.slaynash.communication.enums.ConnectionState;
 import fr.slaynash.communication.handlers.PacketHandler;
-import igoodie.utils.io.NetUtils;
-import igoodie.utils.log.ConsolePrinter;
 
 public class RUDPServer {// receive buffer is bigger (4096B) and client packet is dynamic (<4096B (reliable) / ~21B or ~45B (avoidable))
 	//Packet format:

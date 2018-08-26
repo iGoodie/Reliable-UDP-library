@@ -18,12 +18,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.programmer.igoodie.utils.io.NetUtils;
+import com.programmer.igoodie.utils.log.ConsolePrinter;
+
 import fr.slaynash.communication.RUDPConstants;
 import fr.slaynash.communication.enums.ClientType;
 import fr.slaynash.communication.enums.ConnectionState;
 import fr.slaynash.communication.handlers.PacketHandler;
-import igoodie.utils.io.NetUtils;
-import igoodie.utils.log.ConsolePrinter;
 
 public class RUDPClient { //TODO remove use of ByteBuffers and use functions instead
 

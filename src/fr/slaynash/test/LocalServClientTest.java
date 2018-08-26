@@ -1,11 +1,12 @@
 package fr.slaynash.test;
 
+import com.programmer.igoodie.utils.io.NetUtils;
+
 import fr.slaynash.communication.handlers.OrderedPacketHandler;
 import fr.slaynash.communication.handlers.PacketHandlerAdapter;
 import fr.slaynash.communication.rudp.Packet;
 import fr.slaynash.communication.rudp.RUDPClient;
 import fr.slaynash.communication.rudp.RUDPServer;
-import igoodie.utils.io.NetUtils;
 
 public class LocalServClientTest {
 	private static RUDPServer server;

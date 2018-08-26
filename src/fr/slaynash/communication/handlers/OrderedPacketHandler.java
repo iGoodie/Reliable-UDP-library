@@ -1,9 +1,10 @@
 package fr.slaynash.communication.handlers;
 
+import com.programmer.igoodie.utils.io.NetUtils;
+import com.programmer.igoodie.utils.log.ConsolePrinter;
+
 import fr.slaynash.communication.rudp.Packet;
 import fr.slaynash.communication.utils.PacketQueue;
-import igoodie.utils.io.NetUtils;
-import igoodie.utils.log.ConsolePrinter;
 
 /**
  * Packet handling class base to handle ordered packets. <br/>

@@ -1,6 +1,6 @@
 package fr.slaynash.communication.rudp;
 
-import igoodie.utils.io.NetUtils;
+import com.programmer.igoodie.utils.io.NetUtils;
 
 /**
  * Simple packet definition to be extended by other packet types
